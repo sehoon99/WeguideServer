@@ -22,6 +22,10 @@
     <select id="getGuideByapp" parameterType="String" resultMap="GuideResultMap">
         SELECT * FROM guide WHERE app_name = #{app_name}
     </select>
+    
+    <select id="searchGuides" parameterType="map" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE app_name = #{app_name} AND LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER(CONCAT('%', #{searchString}, '%'))
+    </select>
 
     <insert id="insertGuide" parameterType="com.example.weguide.entity.Guide">
         INSERT INTO guide (guide_id,guide_name,app_name, registrant, regist_date, numofdownload, love)
@@ -57,10 +61,6 @@
 	</update>
 	<!-- MyBatis Mapper XML에서 사용하는 예제 -->
 	
-	<select id="searchGuides" resultType="com.example.entity.Guide">
-        SELECT * FROM guide
-        WHERE app_name = #{app_name} LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER(CONCAT('%', #{searchKeyword}, '%'))
-    </select>
 	
-    
+	
 </mapper>

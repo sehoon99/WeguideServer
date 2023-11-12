@@ -1,6 +1,7 @@
 package com.example.weguide.entity.mybatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,8 @@ public class MybatisGuideDao implements GuideDao{
 		return mapper.updwl(guide_id);
 	}
 	@Override
-	public List<Guide> searchGuides(String app_name, String searchKeyword){
-		return mapper.searchGuides(app_name, searchKeyword);
+	public List<Guide> searchGuides(Map param){
+		return mapper.searchGuides(param);
 	}
 	@Override
 	public List<Guide> getGuideByapp(String app_name){
