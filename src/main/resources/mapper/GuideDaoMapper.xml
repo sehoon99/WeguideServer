@@ -23,8 +23,8 @@
         SELECT * FROM guide WHERE app_name = #{app_name}
     </select>
     
-    <select id="searchGuides" parameterType="map" resultMap="GuideResultMap">
-        SELECT * FROM guide WHERE app_name = #{app_name} AND LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER(CONCAT('%', #{searchString}, '%'))
+    <select id="searchGuides" parameterType="com.example.weguide.entity.Guide" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE app_name = #{app_name} AND LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER('%' || #{guide_name} || '%')
     </select>
 
     <insert id="insertGuide" parameterType="com.example.weguide.entity.Guide">

@@ -22,14 +22,13 @@ public class GuideServiceImp implements GuideService {
 		return foundGuides;
 			}
 	
-	public List<Guide> searchGuides(String app_name, String searchString) {
-		Map<String, String> params = new HashMap<>();
-		params.put("appName", app_name);
-		params.put("searchString", searchString);
-
-		guideDao.searchGuides(params);
-		List<Guide> foundGuides = guideDao.searchGuides(params);
-		System.out.println("이건 됨");
+	public List<Guide> searchGuides(String app_name, String guide_name) {
+		//Map<String, String> params = new HashMap<>();
+		//params.put("appName", appName);
+		//params.put("searchString", searchString);
+		//System.out.println(params.get("appName")+" , "+params.get("searchString"));
+		//guideDao.searchGuides(params);
+		List<Guide> foundGuides = guideDao.searchGuides(app_name,guide_name);
 		return foundGuides;
 	}
 }

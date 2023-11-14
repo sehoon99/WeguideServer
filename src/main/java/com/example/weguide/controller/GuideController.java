@@ -28,9 +28,9 @@ public class GuideController {
      return ResponseEntity.ok(foundGuides);
  }
  @GetMapping("/searchbyname")
- public ResponseEntity<List<Guide>> searchGuides(@RequestParam("app_name") String appName, @RequestParam("searchString") String searchString) {
+ public ResponseEntity<List<Guide>> searchGuides(@RequestParam("app_name") String appName, @RequestParam("guide_name") String guide_name) {
 	 
-     List<Guide> foundGuides = guideService.searchGuides(appName, searchString);
+     List<Guide> foundGuides = guideService.searchGuides(appName, guide_name);
 
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);
