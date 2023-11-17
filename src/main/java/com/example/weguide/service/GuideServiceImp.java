@@ -22,13 +22,18 @@ public class GuideServiceImp implements GuideService {
 		return foundGuides;
 			}
 	
-	public List<Guide> searchGuides(String app_name, String guide_name) {
-		//Map<String, String> params = new HashMap<>();
-		//params.put("appName", appName);
-		//params.put("searchString", searchString);
-		//System.out.println(params.get("appName")+" , "+params.get("searchString"));
-		//guideDao.searchGuides(params);
-		List<Guide> foundGuides = guideDao.searchGuides(app_name,guide_name);
+	public List<Guide> searchGuidesAnd(String app_name, String guide_name) {
+		List<Guide> foundGuides = guideDao.searchGuidesAnd(app_name,guide_name);
 		return foundGuides;
 	}
+	
+	public List<Guide> searchGuidesOr(String keyword) {
+
+		List<Guide> foundGuides = guideDao.searchGuidesOr(keyword);
+		return foundGuides;
+	}
+	public List<Guide> searchbyname(String guide_name) {
+		List<Guide> foundGuides = guideDao.getGuideByname(guide_name);
+		return foundGuides;
+			}
 }

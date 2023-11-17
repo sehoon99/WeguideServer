@@ -57,11 +57,19 @@ public class MybatisGuideDao implements GuideDao{
 		return mapper.updwl(guide_id);
 	}
 	@Override
-	public List<Guide> searchGuides(@Param("app_name") String appName, @Param("guide_name") String guide_name){
-		return mapper.searchGuides(appName, guide_name);
+	public List<Guide> searchGuidesAnd(@Param("app_name") String appName, @Param("guide_name") String guide_name){
+		return mapper.searchGuidesAnd(appName, guide_name);
+	}
+	@Override
+	public List<Guide> searchGuidesOr(String keyword){
+		return mapper.searchGuidesOr(keyword);
 	}
 	@Override
 	public List<Guide> getGuideByapp(String app_name){
 		return mapper.getGuideByapp(app_name);
+	}
+	@Override
+	public List<Guide> getGuideByname(String guide_name){
+		return mapper.getGuideByname(guide_name);
 	}
 }

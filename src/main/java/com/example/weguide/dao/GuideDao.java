@@ -15,6 +15,8 @@ public interface GuideDao {
     void upLike(String guide_id);
     void downLike(String guide_id);
     boolean updwl(String guide_id);
-    List<Guide> searchGuides(@Param("app_name") String appName, @Param("guide_name") String guide_name);
+    List<Guide> searchGuidesAnd(@Param("app_name") String appName, @Param("guide_name") String guide_name);
+    List<Guide> searchGuidesOr(String keyword);
     List<Guide> getGuideByapp(String app_name);
+    List<Guide> getGuideByname(String guide_name);
 }

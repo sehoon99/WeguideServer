@@ -47,9 +47,7 @@ public class FileController {
         // 다운로드할 파일명 설정
         String contentDisposition = "attachment; filename=" + resource.getFilename();
         System.out.println("다운로드 성공");
-        /*
-         다운로드 수 1증가하는 로직. 
-         */
+
         System.out.println(fileService.updwl(fileName, false));
         
         return ResponseEntity.ok()

@@ -22,6 +22,6 @@ public class Guide {
 	private String app_name;
 	private String registrant;
 	private java.sql.Date regist_date;
-	private int numofdownload;
+	private int download;
 	private int love; 
 }
