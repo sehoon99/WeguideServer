@@ -32,7 +32,7 @@
     <!-- checkNicknameDuplicate -->
     <select id="getIdByUsername" resultType="String" >
         SELECT ID FROM MEMBER
-        WHERE NICKNAME = #{username}
+        WHERE USERNAME = #{username}
     </select>
 
 </mapper>

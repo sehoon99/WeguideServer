@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.weguide.dao.DownloadhistoryDao">
+    <resultMap id="DownloadhistoryResultMap" type="com.example.weguide.entity.Downloadhistory">
+        <id property="download_id" column="download_id"/>
+        <result property="id" column="id"/>
+        <result property="guide_id" column="guide_id"/>
+    </resultMap>
+
+    <select id="Isdownloaded" resultMap="DownloadhistoryResultMap">
+        SELECT * FROM downloadhistory
+    </select>
+    <insert id="downloaded" parameterType="com.example.weguide.entity.Downloadhistory">
+        INSERT INTO 
+        DOWNLOADHISTORY(ID,GUIDE_ID)
+        VALUES (weq1.nextval,#{id},#{guide_id})
+    </insert>
+</mapper>

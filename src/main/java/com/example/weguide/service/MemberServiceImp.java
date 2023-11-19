@@ -16,7 +16,6 @@ public class MemberServiceImp implements MemberService {
 
     @Override
     public Member getMemberToLogin(LoginForm loginForm) {
-    	System.out.println("로그인 로직 시작");
         return memberDao.getMemberByLoginForm(loginForm);
     }
     
@@ -35,7 +34,7 @@ public class MemberServiceImp implements MemberService {
     	else if (checkNicknameDuplicate(member.getUsername())) {
     		return 2;
     	}
-    	// id 중복, 닉네임 중복이 모두 아닌 경우, 회원가입 허용
+    	// id 중복, 닉네임중복이 모두 아닌 경우, 회원가입 허용
     	else {
     		memberDao.insertMember(member);
     		return 0;

@@ -19,7 +19,7 @@ public class JwtUtil {
     private Long expiration;
 
     // JWT에서 사용자 이름 추출
-    public String extractUsername(String token) {
+    public String extractId(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
