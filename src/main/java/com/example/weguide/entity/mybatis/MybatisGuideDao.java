@@ -1,11 +1,11 @@
 package com.example.weguide.entity.mybatis;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,14 +45,17 @@ public class MybatisGuideDao implements GuideDao{
 		
 	}
 	@Override
+	@Async
 	public void upLike(String guide_id) {
 		
 	}
 	@Override
+	@Async
 	public void downLike(String guide_id) {
 		
 	}
 	@Override
+	@Async
 	public boolean updwl(String guide_id) {
 		return mapper.updwl(guide_id);
 	}
