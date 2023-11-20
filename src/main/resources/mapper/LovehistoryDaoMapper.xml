@@ -9,10 +9,17 @@
     </resultMap>
 
     <select id="Isloved" resultMap="LovehistoryResultMap">
-        SELECT * FROM downloadhistory
+        SELECT * FROM lovehistory
+        where guide_id = #{guide_id} and id = #{id}
     </select>
-    <insert id="loved" useGeneratedKeys="true" keyProperty="lovedhistory.love_id">
-        INSERT INTO lovedhistory (id,guide_id)
-        VALUES (#{lovedhistory.id},#{lovedhistory.guide_id})
+    <insert id="loved" parameterType="com.example.weguide.entity.Lovehistory">
+        INSERT INTO 
+        LOVEHISTORY(LOVE_ID,ID,GUIDE_ID)
+        VALUES (seq1.nextval,#{id},#{guide_id})
     </insert>
+    <delete id="nolove" parameterType="com.example.weguide.entity.Lovehistory">
+    	DELETE FROM LOVEHISTORY
+    	WHERE GUIDE_ID = #{guide_id} AND ID = #{id}
+	</delete>
+   
 </mapper>

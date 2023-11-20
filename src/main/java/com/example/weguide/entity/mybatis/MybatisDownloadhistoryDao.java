@@ -19,10 +19,11 @@ public class MybatisDownloadhistoryDao implements DownloadhistoryDao{
         mapper = sqlSession.getMapper(DownloadhistoryDao.class);
     }
     @Override
-	public Downloadhistory Isdownloaded(String filename, String username){
-		return mapper.Isdownloaded(filename, username);
+	public Downloadhistory Isdownloaded(Downloadhistory dh){
+		return mapper.Isdownloaded(dh);
 	}
     @Override
-	public void downloaded(Downloadhistory downloadhistory){
+	public boolean downloaded(Downloadhistory downloadhistory){
+    	return mapper.downloaded(downloadhistory);
 	}
 }

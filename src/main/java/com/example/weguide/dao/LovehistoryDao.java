@@ -4,6 +4,7 @@ import com.example.weguide.entity.Lovehistory;
 
 public interface LovehistoryDao {
 
-	Lovehistory Isloved(String filename, String username);
-	void loved(String id);
+	Lovehistory Isloved(Lovehistory lh);
+	boolean loved(Lovehistory lh);
+	boolean nolove(Lovehistory lh);
 	}

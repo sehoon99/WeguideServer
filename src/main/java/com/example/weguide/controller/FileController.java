@@ -46,7 +46,7 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@RequestBody Withtoken withtoken) throws IOException {
         // 파일 경로 설정 (여기서는 상대 경로로 설정하였습니다)
         Path fileDirectory = Paths.get("C:\\Users\\sehoo\\바탕 화면\\comm")
-    		    .toAbsolutePath().normalize().resolve(withtoken.getFile_name());
+    		    .toAbsolutePath().normalize().resolve(withtoken.getGuide_id());
         // 파일을 Resource로 로드
         Resource resource = fileService.loadFileAsResource(fileDirectory);
         
@@ -54,7 +54,7 @@ public class FileController {
         String contentDisposition = "attachment; filename=" + resource.getFilename();
         System.out.println("다운로드 성공");
 
-        System.out.println(fileService.updwl(withtoken.getFile_name(), withtoken.getToken()));
+        System.out.println(fileService.updwl(withtoken.getGuide_id(), withtoken.getToken()));
         
         
         
@@ -79,10 +79,9 @@ public class FileController {
          }
     }
     
-    @GetMapping("/like/{fileName:.+}")
-    public void LikeFile(@PathVariable String fileName) throws IOException {
-    	/*
-    	 
-    	  */
+    @PostMapping("/like")
+    public void LikeFile(@RequestBody Withtoken withtoken) throws IOException {
+    	System.out.println(fileService.updatelike(withtoken.getGuide_id(), withtoken.getToken()));
+    	
     }
 }

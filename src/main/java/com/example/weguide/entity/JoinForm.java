@@ -1,6 +1,5 @@
 package com.example.weguide.entity;
 
-import javax.persistence.Id;
 
 import lombok.Data;
 

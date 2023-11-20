@@ -20,10 +20,17 @@ public class MybatisLovehistoryDao implements LovehistoryDao{
         mapper = sqlSession.getMapper(LovehistoryDao.class);
     }
     @Override
-	public Lovehistory Isloved(String filename, String username){
-		return mapper.Isloved(filename, username);
+	public Lovehistory Isloved(Lovehistory lh){
+		return mapper.Isloved(lh);
 	}
     @Override
-    public void loved(String id) {
+    public boolean loved(Lovehistory lh) {
+    	System.out.println("여기서 멈추네");
+    	return mapper.loved(lh);
+    }
+    
+    @Override
+    public boolean nolove(Lovehistory lh) {
+    	return mapper.nolove(lh);
     }
 }

@@ -51,13 +51,13 @@
     
     <update id="upLike" parameterType="com.example.weguide.entity.Guide">
         UPDATE guide
-        SET love = love+1
+        SET love = love + 1
         WHERE guide_id = #{guide_id}
     </update>
     
     <update id="downLike" parameterType="com.example.weguide.entity.Guide">
         UPDATE guide
-        SET love = love -1
+        SET love = love - 1
         WHERE guide_id = #{guide_id}
     </update>
 

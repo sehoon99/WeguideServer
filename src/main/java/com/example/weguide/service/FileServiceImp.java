@@ -15,6 +15,7 @@ import com.example.weguide.dao.DownloadhistoryDao;
 import com.example.weguide.dao.GuideDao;
 import com.example.weguide.dao.LovehistoryDao;
 import com.example.weguide.entity.Downloadhistory;
+import com.example.weguide.entity.Lovehistory;
 
 @Service("fileservice")
 public class FileServiceImp implements FileService {
@@ -44,27 +45,37 @@ public class FileServiceImp implements FileService {
     	}
     }
     
-    public boolean updatelike(String filename, boolean clicked) {
-    	if(clicked) {
-    		guideDao.downLike(filename);
+    public boolean updatelike(String guide_id, String token) {
+    	String id = jwtutil.extractId(token);
+    	System.out.println("아이디가"+id+"  가이드 이름이 :" +guide_id);
+		Lovehistory lh=new Lovehistory();
+		lh.setId(id);
+		lh.setGuide_id(guide_id);
+    	if(lovehistoryDao.Isloved(lh) != null) {
+    		guideDao.downLike(guide_id);
+    		lovehistoryDao.nolove(lh);
+    		return false;
     	}else {
-    		guideDao.upLike(filename);
+    		guideDao.upLike(guide_id);
+    		lovehistoryDao.loved(lh);
     	}
     	return true;
     }
-    public boolean updwl(String filename, String token) {
+    public boolean updwl(String guide_id, String token) {
     	String id = jwtutil.extractId(token);
-    	System.out.println("이름이!!!!"+id);
-    	if(downloadhistoryDao.Isdownloaded(filename,id) != null) {
+    	System.out.println("아이디가"+id+"  가이드 이름이 :" +guide_id);
+		Downloadhistory dh=new Downloadhistory();
+		dh.setId(id);
+		dh.setGuide_id(guide_id);
+		
+    	if(downloadhistoryDao.Isdownloaded(dh) != null) {
     		System.out.println("이미 다운받음!");
     		return false;
     	}else {
     		System.out.println("첫다운!!");
-    		guideDao.updwl(filename);
-    		Downloadhistory dh=new Downloadhistory();
-    		dh.setId(id);
-    		dh.setGuide_id(filename);
-    		downloadhistoryDao.downloaded(dh);
+    		guideDao.updwl(guide_id);
+
+    		System.out.println(downloadhistoryDao.downloaded(dh));
     	}
     	return true;
     }

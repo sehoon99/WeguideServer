@@ -5,6 +5,6 @@ import com.example.weguide.entity.Downloadhistory;
 public interface DownloadhistoryDao {
 
 	
-	Downloadhistory Isdownloaded(String filename, String username);
-    void downloaded(Downloadhistory downloadhistory);
+	Downloadhistory Isdownloaded(Downloadhistory dh);
+    boolean downloaded(Downloadhistory dh);
 }

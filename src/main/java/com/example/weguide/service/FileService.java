@@ -7,6 +7,6 @@ import org.springframework.core.io.Resource;
 
 public interface FileService {
 	 Resource loadFileAsResource(Path filePath) throws IOException;
-	 boolean updatelike(String filename,boolean clicked);
-	 boolean updwl(String filename, String token);
+	 boolean updatelike(String guide_id,String token);
+	 boolean updwl(String guide_id, String token);
 }
