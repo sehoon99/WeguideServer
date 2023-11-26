@@ -20,33 +20,33 @@ public class GuideController {
  private GuideService guideService;
 
  @GetMapping("/searchbyapp")
- public ResponseEntity<List<Guide>> searchbyapp(@RequestParam String app_name) {
+ public ResponseEntity<List<Guide>> searchbyapp(@RequestParam String app_name, @RequestParam int sortnum) {
 	 
-     List<Guide> foundGuides = guideService.searchbyapp(app_name);
+     List<Guide> foundGuides = guideService.searchbyapp(app_name,sortnum);
 
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);
  }
  @GetMapping("/searchbyname")
- public ResponseEntity<List<Guide>> searchbyname(@RequestParam String guide_name) {
+ public ResponseEntity<List<Guide>> searchbyname(@RequestParam String guide_name, @RequestParam int sortnum) {
 	 
-     List<Guide> foundGuides = guideService.searchbyname(guide_name);
+     List<Guide> foundGuides = guideService.searchbyname(guide_name,sortnum);
 
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);
  }
  @GetMapping("/searchbyand")
- public ResponseEntity<List<Guide>> searchGuidesAnd(@RequestParam("app_name") String appName, @RequestParam("guide_name") String guide_name) {
+ public ResponseEntity<List<Guide>> searchGuidesAnd(@RequestParam("app_name") String appName, @RequestParam("guide_name") String guide_name, @RequestParam int sortnum) {
 	 
-     List<Guide> foundGuides = guideService.searchGuidesAnd(appName, guide_name);
+     List<Guide> foundGuides = guideService.searchGuidesAnd(appName, guide_name,sortnum);
 
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);
  }
  @GetMapping("/searchbyor")
- public ResponseEntity<List<Guide>> searchGuidesOr(@RequestParam String keyword) {
+ public ResponseEntity<List<Guide>> searchGuidesOr(@RequestParam String keyword, @RequestParam int sortnum) {
 	 
-     List<Guide> foundGuides = guideService.searchGuidesOr(keyword);
+     List<Guide> foundGuides = guideService.searchGuidesOr(keyword,sortnum);
 
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);

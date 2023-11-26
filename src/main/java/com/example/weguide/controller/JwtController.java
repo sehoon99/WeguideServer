@@ -29,7 +29,25 @@ public class JwtController {
  		this.jwtUtil = jwtUtil;
  }
 
- @PostMapping("/loginh")
+ 	@PostMapping("/join")
+    public String join(@RequestBody Member member) {
+    // 파라미터: id, pwd, username
+
+    	int isJoin = memberService.join(member);
+    	
+        if (isJoin == 0) {
+            return "{\"result\" : \"JOIN_SUCCESS\"}";
+        } else if (isJoin == 1) {
+            return "{\"result\" : \"JOIN_FAILURE_ID_DUPLICATE\"}";
+        } else if (isJoin == 2) {
+        	return "{\"result\" : \"JOIN_FAILURE_NICKNAME_DUPLICATE\"}";
+        }
+        
+        return "{\"result\" : \"JOIN_FAILURE\"}";
+    }
+ 	
+ 	
+ @PostMapping("/login")
  public ResponseEntity<Map<String, String>> login(@RequestBody LoginForm loginform) {
 	 System.out.println("로그인 로직 시작");
      String id = loginform.getId();

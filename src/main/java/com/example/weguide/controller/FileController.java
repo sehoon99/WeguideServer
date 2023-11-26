@@ -1,9 +1,11 @@
 package com.example.weguide.controller;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +15,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,17 +66,25 @@ public class FileController {
     }
     
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-         try {
-             String fileName = file.getOriginalFilename();
-             Path filePath = Paths.get("C:\\Users\\sehoo\\OneDrive\\바탕 화면\\comm")
-         		    .toAbsolutePath().normalize().resolve(fileName);
-             Files.write(filePath, file.getBytes()); // 파일 저장
-             
-             return ResponseEntity.status(HttpStatus.CREATED).body("File uploaded successfully: " + fileName);
-         } catch (IOException e) {
-             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
-         }
+    public ResponseEntity<String> uploadFile(@RequestPart("file") MultipartFile file) {
+        try {
+            // 원본 파일 경로
+            String originalFilePath = "C:\\Users\\sehoo\\바탕 화면\\local\\" + file.getOriginalFilename();
+
+            // 대상 폴더 경로
+            String targetFolderPath = "C:\\Users\\sehoo\\바탕 화면\\comm\\";
+
+            // 원본 파일을 대상 폴더로 복사
+            Path originalPath = FileSystems.getDefault().getPath(originalFilePath);
+            Path targetPath = FileSystems.getDefault().getPath(targetFolderPath, file.getOriginalFilename());
+
+            // 파일 복사
+            Files.copy(originalPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body("File uploaded and moved successfully: " + file.getOriginalFilename());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload and move file");
+        }
     }
     
     @PostMapping("/like")

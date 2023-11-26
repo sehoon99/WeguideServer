@@ -1,8 +1,6 @@
 package com.example.weguide.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,24 +14,27 @@ public class GuideServiceImp implements GuideService {
 
 	@Autowired
 	private GuideDao guideDao;
-
-	public List<Guide> searchbyapp(String app_name) {
+	@Autowired
+	private GuideSorter guidesoter;
+	
+	public List<Guide> searchbyapp(String app_name,int sortnum) {
 		List<Guide> foundGuides = guideDao.getGuideByapp(app_name);
-		return foundGuides;
+		return guidesoter.sort(foundGuides, sortnum);
 			}
 	
-	public List<Guide> searchGuidesAnd(String app_name, String guide_name) {
+	public List<Guide> searchGuidesAnd(String app_name, String guide_name,int sortnum) {
 		List<Guide> foundGuides = guideDao.searchGuidesAnd(app_name,guide_name);
-		return foundGuides;
+		return guidesoter.sort(foundGuides, sortnum);
 	}
 	
-	public List<Guide> searchGuidesOr(String keyword) {
+	public List<Guide> searchGuidesOr(String keyword,int sortnum) {
 
 		List<Guide> foundGuides = guideDao.searchGuidesOr(keyword);
-		return foundGuides;
+		return guidesoter.sort(foundGuides, sortnum);
 	}
-	public List<Guide> searchbyname(String guide_name) {
+	public List<Guide> searchbyname(String guide_name,int sortnum) {
 		List<Guide> foundGuides = guideDao.getGuideByname(guide_name);
-		return foundGuides;
+		System.out.println("어디서?"+ sortnum);
+		return guidesoter.sort(foundGuides, sortnum);
 			}
 }
