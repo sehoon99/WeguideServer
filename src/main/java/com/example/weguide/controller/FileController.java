@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.weguide.auth.JwtUtil;
 import com.example.weguide.entity.Withtoken;
 import com.example.weguide.service.FileServiceImp;
+import com.example.weguide.service.JsonValidator;
 
 @RestController
 @RequestMapping("/file")
@@ -33,13 +34,16 @@ public class FileController {
 	@Autowired
     private final FileServiceImp fileService;
 	
-	 private final JwtUtil jwtUtil;
+	private final JwtUtil jwtUtil;
 
+	private final JsonValidator jv;
+	
 	private Map<String, byte[]> fileStorage = new HashMap<>();
 	
-    public FileController(FileServiceImp fileService, JwtUtil jwtUtil) {
+    public FileController(FileServiceImp fileService, JwtUtil jwtUtil, JsonValidator jv) {
         this.fileService = fileService;
         this.jwtUtil = jwtUtil;
+        this.jv=jv;
     }
 
     @PostMapping("/download")    //get 으로 ~~/file/download/111_KAKAO_1.txt
@@ -67,11 +71,18 @@ public class FileController {
     
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestPart("file") MultipartFile file) {
+    	
+    	boolean isValid;
         try {
             // 원본 파일 경로
             String originalFilePath = "C:\\Users\\sehoo\\바탕 화면\\local\\" + file.getOriginalFilename();
+            String fileContent = jv.readFileToString(originalFilePath);
 
-            // 대상 폴더 경로
+            // Json 형식 유효성 검사 
+            isValid = jv.isValidJson(fileContent);
+            System.out.println("File content is valid JSON: " + isValid);   
+            if(isValid) {
+            // 업로드할 경로
             String targetFolderPath = "C:\\Users\\sehoo\\바탕 화면\\comm\\";
 
             // 원본 파일을 대상 폴더로 복사
@@ -80,8 +91,9 @@ public class FileController {
 
             // 파일 복사
             Files.copy(originalPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-
             return ResponseEntity.status(HttpStatus.CREATED).body("File uploaded and moved successfully: " + file.getOriginalFilename());
+            }
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload and move file");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload and move file");
         }
