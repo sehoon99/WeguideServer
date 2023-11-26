@@ -31,16 +31,4 @@ public class JsonValidator {
         Path path = Paths.get(filePath);
         return Files.readString(path);
     }
-    
-
-    public static void main(String[] args) {
-        String validJson = "{\"key\": \"value\"}";
-        String invalidJson = "{\"key\": \"value\",}";
-
-        boolean isValid = isValidJson(validJson);
-        System.out.println("isValidJson(validJson): " + isValid);
-
-        isValid = isValidJson(invalidJson);
-        System.out.println("isValidJson(invalidJson): " + isValid);
-    }
 }
