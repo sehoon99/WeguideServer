@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.weguide.dao.LovehistoryDao">
+    <resultMap id="LovehistoryResultMap" type="com.example.weguide.entity.Lovehistory">
+        <id property="love_id" column="love_id"/>
+        <result property="id" column="id"/>
+        <result property="guide_id" column="guide_id"/>
+    </resultMap>
+
+    <select id="Isloved" resultMap="LovehistoryResultMap">
+        SELECT * FROM lovehistory
+        where guide_id = #{guide_id} and id = #{id}
+    </select>
+    <insert id="loved" parameterType="com.example.weguide.entity.Lovehistory">
+        INSERT INTO 
+        LOVEHISTORY(LOVE_ID,ID,GUIDE_ID)
+        VALUES (seq1.nextval,#{id},#{guide_id})
+    </insert>
+    <delete id="nolove" parameterType="com.example.weguide.entity.Lovehistory">
+    	DELETE FROM LOVEHISTORY
+    	WHERE GUIDE_ID = #{guide_id} AND ID = #{id}
+	</delete>
+   
+</mapper>

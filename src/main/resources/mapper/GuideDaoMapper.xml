@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.weguide.dao.GuideDao">
+    <resultMap id="GuideResultMap" type="com.example.weguide.entity.Guide">
+        <id property="guide_id" column="guide_id"/>
+        <result property="guide_name" column="guide_name"/>
+        <result property="app_name" column="app_name"/>
+        <result property="registrant" column="registrant"/>
+        <result property="regist_date" column="regist_date"/>
+        <result property="numofdownload" column="numofdownload"/>
+        <result property="love" column="love"/>
+    </resultMap>
+
+    <select id="getAllGuides" resultMap="GuideResultMap">
+        SELECT * FROM guide
+    </select>
+
+    <select id="getGuideById" parameterType="String" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE guide_id = #{guide_id}
+    </select>
+    <select id="getGuideByapp" parameterType="String" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE app_name = #{app_name}
+    </select>
+    <select id="getGuideByname" parameterType="String" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER('%' || #{guide_name} || '%')
+    </select>
+    
+    <select id="searchGuidesAnd" parameterType="com.example.weguide.entity.Guide" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE app_name = #{app_name} AND LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER('%' || #{guide_name} || '%')
+    </select>
+    
+       <select id="searchGuidesOr" parameterType="com.example.weguide.entity.Guide" resultMap="GuideResultMap">
+        SELECT * FROM guide WHERE app_name = #{keyword} OR LOWER(REPLACE(guide_name, ' ', '')) LIKE LOWER('%' || #{keyword} || '%')
+    </select>
+
+    <insert id="insertGuide" parameterType="com.example.weguide.entity.Guide">
+        INSERT INTO guide (guide_id,guide_name,app_name, registrant, regist_date, download, love)
+        VALUES (#{guide_id},#{guide_name},#{app_name}, #{registrant}, #{regist_date}, #{download}, #{love})
+    </insert>
+
+    <update id="updateGuide" parameterType="com.example.weguide.entity.Guide">
+        UPDATE guide
+        SET guide_name =#{guide_name},app_name = #{app_name},registrant = #{registrant}, regist_date = #{regist_date}, download = #{download}, love = #{love}
+        WHERE guide_id = #{guide_id}
+    </update>
+
+    <delete id="deleteGuide" parameterType="String">
+        DELETE FROM guide WHERE guide_id = #{guide_id}
+    </delete>
+    
+    <update id="upLike" parameterType="com.example.weguide.entity.Guide">
+        UPDATE guide
+        SET love = love + 1
+        WHERE guide_id = #{guide_id}
+    </update>
+    
+    <update id="downLike" parameterType="com.example.weguide.entity.Guide">
+        UPDATE guide
+        SET love = love - 1
+        WHERE guide_id = #{guide_id}
+    </update>
+
+    <update id="updwl">
+   		UPDATE guide
+    	SET download = download + 1
+    	WHERE guide_id = #{guide_id}
+	</update>
+	<!-- MyBatis Mapper XML에서 사용하는 예제 -->
+	
+	
+	
+</mapper>
