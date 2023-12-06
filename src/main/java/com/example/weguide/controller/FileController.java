@@ -46,27 +46,31 @@ public class FileController {
         this.jv=jv;
     }
 
-    @PostMapping("/download")    //get 으로 ~~/file/download/111_KAKAO_1.txt
-    public ResponseEntity<Resource> downloadFile(@RequestBody Withtoken withtoken) throws IOException {
-        // 파일 경로 설정 (여기서는 상대 경로로 설정하였습니다)
-        Path fileDirectory = Paths.get("C:\\Users\\sehoo\\바탕 화면\\comm")
-    		    .toAbsolutePath().normalize().resolve(withtoken.getGuide_id());
-        // 파일을 Resource로 로드
-        Resource resource = fileService.loadFileAsResource(fileDirectory);
-        
-        // 다운로드할 파일명 설정
-        String contentDisposition = "attachment; filename=" + resource.getFilename();
-        System.out.println("다운로드 성공");
+    @PostMapping("/download")
+    public ResponseEntity<Resource> downloadFile(@RequestBody Withtoken withtoken) {
+        try {
+            // 파일 경로 설정 (여기서는 상대 경로로 설정하였습니다)
+            Path fileDirectory = Paths.get("C:\\Users\\sehoo\\바탕 화면\\comm")
+                    .toAbsolutePath().normalize().resolve(withtoken.getGuide_id());
+            
+            // 파일을 Resource로 로드
+            Resource resource = fileService.loadFileAsResource(fileDirectory);
 
-        System.out.println(fileService.updwl(withtoken.getGuide_id(), withtoken.getToken()));
-        
-        
-        
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-                .body(resource); 
-        
+            // 다운로드할 파일명 설정
+            String contentDisposition = "attachment; filename=" + resource.getFilename();
+            System.out.println("다운로드 성공");
+
+            System.out.println(fileService.updwl(withtoken.getGuide_id(), withtoken.getToken()));
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                    .body(resource);
+        } catch (IOException e) {
+            // 파일 다운로드 실패 시 응답
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
     }
     
     @PostMapping("/upload")
@@ -92,8 +96,9 @@ public class FileController {
             // 파일 복사
             Files.copy(originalPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
             return ResponseEntity.status(HttpStatus.CREATED).body("File uploaded and moved successfully: " + file.getOriginalFilename());
+            }else {
+            	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload and JSON invalid");
             }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload and move file");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload and move file");
         }

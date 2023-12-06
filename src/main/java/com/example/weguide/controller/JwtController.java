@@ -36,14 +36,14 @@ public class JwtController {
     	int isJoin = memberService.join(member);
     	
         if (isJoin == 0) {
-            return "{\"result\" : \"JOIN_SUCCESS\"}";
+            return "result : JOIN_SUCCESS";
         } else if (isJoin == 1) {
-            return "{\"result\" : \"JOIN_FAILURE_ID_DUPLICATE\"}";
+            return "result : JOIN_FAILURE_ID_DUPLICATE";
         } else if (isJoin == 2) {
-        	return "{\"result\" : \"JOIN_FAILURE_NICKNAME_DUPLICATE\"}";
+        	return "result : JOIN_FAILURE_NICKNAME_DUPLICATE";
         }
         
-        return "{\"result\" : \"JOIN_FAILURE\"}";
+        return "result : JOIN_FAILURE";
     }
  	
  	
@@ -65,7 +65,7 @@ public class JwtController {
          response.put("username", username);
          System.out.println("로그인 로직 종료");
      } else {
-    	 response.put("token", null);
+    	 response.put("token", "null");
      }
      return ResponseEntity.ok(response);
  }
