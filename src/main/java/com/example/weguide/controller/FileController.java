@@ -74,8 +74,8 @@ public class FileController {
     }
     
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestPart("file") MultipartFile file) {
-    	
+    public ResponseEntity<String> uploadFile(@RequestPart("file") MultipartFile file,@RequestPart("guidename") String guidename,@RequestPart("token") String token ) {
+    	String id=jwtUtil.extractId(token);
     	boolean isValid;
         try {
             // 원본 파일 경로
@@ -92,7 +92,8 @@ public class FileController {
             // 원본 파일을 대상 폴더로 복사
             Path originalPath = FileSystems.getDefault().getPath(originalFilePath);
             Path targetPath = FileSystems.getDefault().getPath(targetFolderPath, file.getOriginalFilename());
-
+            
+            fileService.uploadGuide(file.getOriginalFilename(),guidename,token);
             // 파일 복사
             Files.copy(originalPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
             return ResponseEntity.status(HttpStatus.CREATED).body("File uploaded and moved successfully: " + file.getOriginalFilename());

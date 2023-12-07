@@ -20,18 +20,18 @@ public class GuideController {
  private GuideService guideService;
 
  @GetMapping("/searchbyapp")
- public ResponseEntity<List<Guide>> searchbyapp(@RequestParam String app_name, @RequestParam int sortnum) {
+ public ResponseEntity<List<Guide>> searchbyapp(@RequestParam String keyword, @RequestParam int sortnum) {
 	 
-     List<Guide> foundGuides = guideService.searchbyapp(app_name,sortnum);
+     List<Guide> foundGuides = guideService.searchbyapp(keyword,sortnum);
 
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);
  }
  @GetMapping("/searchbyname")
- public ResponseEntity<List<Guide>> searchbyname(@RequestParam String guide_name, @RequestParam int sortnum) {
+ public ResponseEntity<List<Guide>> searchbyname(@RequestParam String keyword, @RequestParam int sortnum) {
 	 
-     List<Guide> foundGuides = guideService.searchbyname(guide_name,sortnum);
-
+     List<Guide> foundGuides = guideService.searchbyname(keyword,sortnum);
+     System.out.println("검색 시작?");
      // 검색 결과를 클라이언트로 응답 (JSON 형식)
      return ResponseEntity.ok(foundGuides);
  }
