@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,14 +75,21 @@ public class FileController {
     }
     
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestPart("file") MultipartFile file,@RequestPart("guidename") String guidename,@RequestPart("token") String token ) {
+    public ResponseEntity<String> uploadFile(@RequestPart("file") MultipartFile file,@RequestPart("guidename") String guidename,@RequestPart("token") String token) {
+    	System.out.println(token);
+    	token = token.replaceAll("\"", "");
+    	guidename = guidename.replaceAll("\"", "");
+    	System.out.println(token);
     	String id=jwtUtil.extractId(token);
+    	System.out.println(id+"  "+file.getOriginalFilename()+"  "+token);
     	boolean isValid;
         try {
             // 원본 파일 경로
+        	System.out.println("여기는");
             String originalFilePath = "C:\\Users\\sehoo\\바탕 화면\\local\\" + file.getOriginalFilename();
+            System.out.println("여긴오냐ㄴㄴ?");
             String fileContent = jv.readFileToString(originalFilePath);
-
+            System.out.println("여긴오냐?");
             // Json 형식 유효성 검사 
             isValid = jv.isValidJson(fileContent);
             System.out.println("File content is valid JSON: " + isValid);   

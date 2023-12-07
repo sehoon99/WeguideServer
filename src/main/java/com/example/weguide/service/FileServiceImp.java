@@ -86,12 +86,12 @@ public class FileServiceImp implements FileService {
     	}
     	return true;
     }
-    public int uploadGuide(String filename,String guidename, String token) {
+    public int uploadGuide(String filename, String guide_name, String token) {
     	Guide guide=new Guide();
     	String id=jwtutil.extractId(token);
     	Member member = memberService.getMemberById(id);
     	guide.setGuide_id(filename);
-    	guide.setGuide_name(guidename);
+    	guide.setGuide_name(guide_name);
     	guide.setApp_name("앱이름");
     	guide.setRegistrant(member.getUsername());
     	guide.setRegistDate(getCurrentSqlDate());
