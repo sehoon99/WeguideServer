@@ -18,6 +18,9 @@ public class Guide {
 	 public void setGuide_name(String guide_name) {
 	        this.guideName = guide_name;
 	    }
+	 public String getGuide_name() {
+	        return this.guideName;
+	    }
 	
 	private String app_name;
 	private String registrant;

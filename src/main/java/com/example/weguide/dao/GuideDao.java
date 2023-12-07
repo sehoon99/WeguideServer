@@ -9,7 +9,7 @@ import com.example.weguide.entity.Guide;
 public interface GuideDao {
     List<Guide> getAllGuides();
     Guide getGuideById(String guide_id);
-    void insertGuide(Guide guide);
+    boolean insertGuide(Guide guide);
     void updateGuide(Guide guide);
     void deleteGuide(String guide_id);
     void upLike(String guide_id);

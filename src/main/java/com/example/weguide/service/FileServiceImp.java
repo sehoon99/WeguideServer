@@ -86,7 +86,7 @@ public class FileServiceImp implements FileService {
     	}
     	return true;
     }
-    public void uploadGuide(String filename,String guidename, String token) {
+    public int uploadGuide(String filename,String guidename, String token) {
     	Guide guide=new Guide();
     	String id=jwtutil.extractId(token);
     	Member member = memberService.getMemberById(id);
@@ -97,9 +97,10 @@ public class FileServiceImp implements FileService {
     	guide.setRegistDate(getCurrentSqlDate());
     	guide.setDownload(0);
     	guide.setLove(0);
-    	guideDao.insertGuide(guide);
+    	System.out.println("저장 성공?"+guideDao.insertGuide(guide));
+    	return 0;
     }
-    private static Date getCurrentSqlDate() {
+    public Date getCurrentSqlDate() {
         // 현재 날짜를 LocalDate 객체로 얻고 java.sql.Date로 변환
         LocalDate localDate = LocalDate.now();
         return Date.valueOf(localDate);

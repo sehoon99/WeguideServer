@@ -8,7 +8,7 @@
         <result property="app_name" column="app_name"/>
         <result property="registrant" column="registrant"/>
         <result property="regist_date" column="regist_date"/>
-        <result property="numofdownload" column="numofdownload"/>
+        <result property="download" column="download"/>
         <result property="love" column="love"/>
     </resultMap>
 
@@ -35,7 +35,8 @@
     </select>
 
     <insert id="insertGuide" parameterType="com.example.weguide.entity.Guide">
-        INSERT INTO guide (guide_id,guide_name,app_name, registrant, regist_date, download, love)
+        INSERT INTO 
+        GUIDE (GUIDE_ID,GUIDE_NAME,APP_NAME, REGISTRANT, REGIST_DATE, DOWNLOAD, LOVE)
         VALUES (#{guide_id},#{guide_name},#{app_name}, #{registrant}, #{regist_date}, #{download}, #{love})
     </insert>
 

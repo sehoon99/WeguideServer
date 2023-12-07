@@ -33,8 +33,9 @@ public class MybatisGuideDao implements GuideDao{
 	}
 	
 	@Override
-	public void insertGuide(Guide guide) {
-		
+	public boolean insertGuide(Guide guide) {
+		System.out.println("저장중");
+		return mapper.insertGuide(guide);
 	}
 	@Override
 	public void updateGuide(Guide guide) {
